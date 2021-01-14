@@ -1,6 +1,6 @@
-# Order-statistics-AVL-tree
-> This is a simple implementation of an order-statistics AVL tree in C++.
-[![Build Status](https://travis-ci.com/gampu/Order-statistics-AVL-tree.svg?token=77iqP6njyrrs3QHPupD5&branch=master)](https://travis-ci.com/gampu/Order-statistics-AVL-tree)
+# Order-statistic-AVL-tree
+> This is a simple implementation of an order-statistic AVL tree in C++.
+[![Build Status](https://travis-ci.com/gampu/Order-statistic-AVL-tree.svg?token=77iqP6njyrrs3QHPupD5&branch=master)](https://travis-ci.com/gampu/Order-statistic-AVL-tree)
 
 ## Example Usage:
 ```cpp
