@@ -223,6 +223,10 @@ The core functionality of an order-statistics AVL tree has been well tested and 
 - Make `Iterator` class conform to the existing C++ standards:
   - Expose only the stored data and not the whole `Node`.
   - Add copy constructor, overload equality and inequality operators among others.
-- Make `Tree`class conform to the software engineering framework:
+  
+- Make `Tree` class conform to the software engineering framework:
   - Overload equality and inequality operators. 
   - Add functionality for passing-by-reference where not supported.
+  
+- Add documentation for workings of different concepts and techniques.
+- Add coverity scan and profiling.
