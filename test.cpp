@@ -93,17 +93,17 @@ int main( void )
     }
     std::cout << "\n";
 
-    /* Let's use positionQuery */
+    /* Let's use getIndexGivenValue */
     /* 17 is the 6th element */
-    assert( t1.positionQuery( 17 ) == 6 );
+    assert( t1.getIndexGivenValue( 17 ) == 6 );
     /* 25 doesn't exist */
-    assert( t1.positionQuery( 25 ) == 0 );
+    assert( t1.getIndexGivenValue( 25 ) == 0 );
 
-    /* Let's use indexQuery */
-    /* 16 is at position 5 */
-    assert( t1.indexQuery( 5 )->el == 16 );
+    /* Let's use getValueGivenIndex */
+    /* 16 is at index 5 */
+    assert( t1.getValueGivenIndex( 5 )->el == 16 );
     /* t1.size() + 1 index is invalid */
-    assert( t1.indexQuery( t1.size() + 1 ) == 0 );
+    assert( t1.getValueGivenIndex( t1.size() + 1 ) == 0 );
 
     /* Let's use lowerbound */
     /* lowerbound of 14 is 14 */

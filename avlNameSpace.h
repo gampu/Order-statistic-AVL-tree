@@ -1,3 +1,6 @@
+#ifndef AVLNAMESPACE_H
+#define AVLNAMESPACE_H
+
 /* Basic input/output */
 #include<iostream>
 
@@ -127,8 +130,6 @@ namespace AVL
                     pre = p;
                     if( el == p->el )
                     {
-                        std::cout << el << "\n";
-                        std::cout << p->el << "\n";
                         free( node );
                         return false;
                     }
@@ -222,26 +223,26 @@ namespace AVL
                sequence of all the elements in the tree
                Returns 0 if not found, non-zero and less than or equal to 'cnt'
                if found. */
-            int positionQuery( T val )
+            int getIndexGivenValue( T val )
             {
                 if( !search( val ) )
                 {
                     return 0;
                 }
-                return positionQuery( root, val );
+                return getIndexGivenValue( root, val );
             } 
 
             /* Given a 1-based index 'pos', returns the node pointer at 
-               position 'pos' in the ascending sequence of all the elements in
+               index 'pos' in the ascending sequence of all the elements in
                the tree
                If pos is invalid, returns null */
-            Node< T >* indexQuery( int pos )
+            Node< T >* getValueGivenIndex( int pos )
             {
                 if( !( pos >= 1 && pos <= cnt ) )
                 {
                     return 0;
                 }
-                return indexQuery( root, pos );
+                return getValueGivenIndex( root, pos );
             }
 
             /* Returns a pointer to smallest 'Node< T >' whose 'el' is atleast
@@ -547,8 +548,8 @@ namespace AVL
                 --cnt;
             }
 
-            /* Helper function for 'positionQuery' */
-            int positionQuery( Node< T >* ptr, T val )
+            /* Helper function for 'getIndexGivenValue' */
+            int getIndexGivenValue( Node< T >* ptr, T val )
             {
                 if( ptr->el == val )
                 {
@@ -556,17 +557,17 @@ namespace AVL
                 }
                 else if( ptr->el > val )
                 {
-                    return positionQuery( ptr->left, val );
+                    return getIndexGivenValue( ptr->left, val );
                 }
                 else
                 {
                     return sz( ptr->left ) + 1 + 
-                           positionQuery( ptr->right, val );
+                           getIndexGivenValue( ptr->right, val );
                 }
             }
 
-            /* Helper function for 'indexQuery' */
-            Node< T >* indexQuery( Node< T >* ptr, int ind )
+            /* Helper function for 'getValueGivenIndex' */
+            Node< T >* getValueGivenIndex( Node< T >* ptr, int ind )
             {
                 int res = sz( ptr->left ) + 1;
                 if( res == ind )
@@ -575,11 +576,11 @@ namespace AVL
                 }
                 else if( res > ind )
                 {
-                    return indexQuery( ptr->left, ind );
+                    return getValueGivenIndex( ptr->left, ind );
                 }
                 else
                 {
-                    return indexQuery( ptr->right, ind - res );
+                    return getValueGivenIndex( ptr->right, ind - res );
                 }
             }
 
@@ -597,3 +598,4 @@ namespace AVL
     }; /* End class Tree */
 }
 /* End AVL namespace */
+#endif
