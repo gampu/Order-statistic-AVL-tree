@@ -1,6 +1,25 @@
 language: generic
 dist: bionic
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   # via the "travis encrypt" command using the project repo's public key
+   - secure: "X6fzbxt2Lh507FVW0ADdwJ4pqvhGXOlbIbHUvtSBhuZwRoWgmeVIiA+duWvIPlYRexzx/RO2roLvJZV1xNKdSitNhbch0PG9JwnTidB6Ct7PKA/nnfu802KwDiKNYWPeE+8X1IR6NMMYJv7a/gS0zFDbX3qEuHJzWh5r0Jwsx2AJzf42GvzzcWJhvLQTjfuatNxvxnJgHftFAGKycDGYFr7w6N1eHNFbeiXNcWYKjIMN2JtIeuq3MsS1cmoLfRhxQE/wAUx3tqGqfiJfTYknRWP4ZUjW76aDBVAy9VwTQ4xUTZNcpRYdUb8uD6Ajvuy2VDJai1/PLId9y+gWJSOGFxDll/PsXtSw8aW3U4LNFLOsc64+/7DdSi5qtwhfh8iZpT3FUDACRuhNzVff9+vTzFgc0IUtA0rrfjwqShaRfidSUkCjcCf1bylez1xt/snb/xNzOq243FfuBCTcs3k0QE+VuBHgkCxFd+ORNl54QBO9Eo9mCYf+HUI95Y7ycSSfDIBV4ZHm5159zMO3PddhWWSHkhy+tlaug3Um8MCnXNDBa6JOQj214JJE0QzZ5TANSBBEDQpTK1jePei+uHGVJT8f1INo0HdjnX8YWTg8sE8GgNyTQF3IUwP512mAMotPm40d4n8pFPp8gcen0rlR/Tn684OVoIInEZ71EoJ0L+k="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 script:
     - g++ -std=c++17 test.cpp -Wall -pedantic
-    - time ./a.out    
+    - time ./a.out
+
+addons:
+  coverity_scan:
+    project:
+      name: "gampu/Order-statistic-AVL-tree"
+      description: "Order-statistic AVL tree"
+    notification_email: avivalse@gmail.com
+    build_command_prepend: "g++ -std=c++17 test.cpp -Wall -pedantic"
+    build_command: ""
+    branch_pattern: master
