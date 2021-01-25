@@ -1,9 +1,11 @@
 # Order-statistic-AVL-tree
+
 > This is a simple implementation of an order-statistic AVL tree in C++.
-[![Build Status](https://travis-ci.com/gampu/Order-statistic-AVL-tree.svg?token=77iqP6njyrrs3QHPupD5&branch=master)](https://travis-ci.com/gampu/Order-statistic-AVL-tree)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree?ref=badge_shield)
+> [![Build Status](https://travis-ci.com/gampu/Order-statistic-AVL-tree.svg?token=77iqP6njyrrs3QHPupD5&branch=master)](https://travis-ci.com/gampu/Order-statistic-AVL-tree)
+> [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree?ref=badge_shield)
 
 ## Example Usage:
+
 ```cpp
 #include"avlNameSpace.h"
 
@@ -214,24 +216,34 @@ int main( void )
     return 0;
 }
 ```
+
 ## Highlights:
+
 1. Header-only namespace. Grab a copy of `avlNameSpace.h`.
 2. Well commented APIs and examples.
 
 ## Note:
-The core functionality of an order-statistics AVL tree has been well tested and documented and will likely remain stable. However, the C++ software engineering wrapper needs to be made more robust and STL friendly. You are free to use the core logic and wrap it in a way you need until I come-up with the changes. Following things are under-construction:-
+
+The core functionality of an order-statistics AVL tree has been well tested and
+documented and will likely remain stable. However, the C++ software engineering
+wrapper needs to be made more robust and STL friendly. You are free to use the
+core logic and wrap it in a way you need until I come-up with the changes.
+Following things are under-construction:-
 
 - Make `Iterator` class conform to the existing C++ standards:
+
   - Expose only the stored data and not the whole `Node`.
-  - Add copy constructor, overload equality and inequality operators among others.
-  
+  - Add copy constructor, overload equality and inequality operators among
+    others.
+
 - Make `Tree` class conform to the software engineering framework:
-  - Overload equality and inequality operators. 
+
+  - Overload equality and inequality operators.
   - Add functionality for passing-by-reference where not supported.
-  
+
 - Add documentation for workings of different concepts and techniques.
 - Add coverity scan and profiling.
 
-
 ## License
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree?ref=badge_large)
