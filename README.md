@@ -1,6 +1,7 @@
 # Order-statistic-AVL-tree
 > This is a simple implementation of an order-statistic AVL tree in C++.
 [![Build Status](https://travis-ci.com/gampu/Order-statistic-AVL-tree.svg?token=77iqP6njyrrs3QHPupD5&branch=master)](https://travis-ci.com/gampu/Order-statistic-AVL-tree)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree?ref=badge_shield)
 
 ## Example Usage:
 ```cpp
@@ -230,3 +231,7 @@ The core functionality of an order-statistics AVL tree has been well tested and 
   
 - Add documentation for workings of different concepts and techniques.
 - Add coverity scan and profiling.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fgampu%2FOrder-statistic-AVL-tree?ref=badge_large)
