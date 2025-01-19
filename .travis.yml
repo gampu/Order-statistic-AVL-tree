@@ -1,6 +1,0 @@
-language: generic
-dist: bionic
-
-script:
-    - g++ -std=c++17 test.cpp -Wall -pedantic
-    - time ./a.out    
