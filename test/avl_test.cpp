@@ -1,4 +1,4 @@
-#include"avlNameSpace.h"
+#include "../src/avl.h"
 
 /* Custom data-type for testing purposes */
 struct customNode
