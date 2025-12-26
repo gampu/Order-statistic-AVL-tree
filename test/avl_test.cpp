@@ -31,7 +31,8 @@ struct customNode {
   }
 
   /* A friendly function to output CustomNode easily */
-  friend std::ostream &operator<<(std::ostream &out, struct customNode &obj) {
+  friend std::ostream &operator<<(std::ostream &out,
+                                  const struct customNode &obj) {
     out << obj.val << " " << obj.c;
     return out;
   }
@@ -39,7 +40,7 @@ struct customNode {
 /* A handy alias for struct customNode */
 typedef struct customNode CustomNode;
 
-TEST(AVLTEST, HandleAllCases) {
+TEST(AVLTEST1, IntegerSimpleCase) {
   /* First, lets' create an AVL tree of integers from 11-20 */
   AVL::Tree<int> t1;
   for (int i = 11; i <= 20; ++i) {
@@ -58,25 +59,16 @@ TEST(AVLTEST, HandleAllCases) {
   EXPECT_TRUE(!t1.findAndDeleteByCopying(30));
 
   /* Let's do a forward inorder iteration */
-  AVL::Iterator<int> fwd(t1.begin());
-  /* Iterate only if 'ptr' is not null 'ptr' points to the 'Node< int >' object
-   * and 'el' is the required value */
-  while (fwd.ptr) {
+  for (AVL::Iterator<int> fwd(t1.begin()); fwd != nullptr; ++fwd) {
     /* Print element value */
-    std::cout << fwd.ptr->el << "\n";
-    /* Fetch next */
-    t1.nextNode(fwd);
+    std::cout << *fwd << "\n";
   }
   std::cout << "\n";
 
   /* Let's do a backward inorder iteration */
-  AVL::Iterator<int> bwd(t1.rbegin());
-  /* Iterate only if 'ptr' is not null */
-  while (bwd.ptr) {
+  for (AVL::Iterator<int> bwd(t1.rbegin()); bwd != nullptr; --bwd) {
     /* Print element value */
-    std::cout << bwd.ptr->el << "\n";
-    /* Fetch previous */
-    t1.prevNode(bwd);
+    std::cout << *bwd << "\n";
   }
   std::cout << "\n";
 
@@ -108,26 +100,22 @@ TEST(AVLTEST, HandleAllCases) {
 
   /* Insert 50 in t2 and output it */
   t2.insert(50);
-  /* Use previously defined iterator */
-  fwd.set(t2.begin());
-  while (fwd.ptr) {
+  for (AVL::Iterator<int> fwd(t2.begin()); fwd != nullptr; ++fwd) {
     /* Print element value */
-    std::cout << fwd.ptr->el << "\n";
-    /* Fetch next */
-    t2.nextNode(fwd);
+    std::cout << *fwd << "\n";
   }
   std::cout << "\n";
 
   /* Clear t3 and output it */
   t3.clear();
-  fwd.set(t3.begin());
-  while (fwd.ptr) {
+  for (AVL::Iterator<int> fwd(t3.begin()); fwd != nullptr; ++fwd) {
     /* Print element value */
-    std::cout << fwd.ptr->el << "\n";
-    t3.nextNode(fwd);
+    std::cout << *fwd << "\n";
   }
   std::cout << "\n";
+}
 
+TEST(AVLTEST2, CustomNodeSimpleCase) {
   /* Let's try using some custom data-type */
   AVL::Tree<CustomNode> t4;
   for (int i = 10; i <= 20; ++i) {
@@ -142,22 +130,20 @@ TEST(AVLTEST, HandleAllCases) {
 
   /* Let's output it */
   /* Forward iteration */
-  AVL::Iterator<CustomNode> it(t4.begin());
-  while (it.ptr) {
+  for (AVL::Iterator<CustomNode> it(t4.begin()); it != nullptr; ++it) {
     /* Print element value */
-    std::cout << it.ptr->el << "\n";
-    t4.nextNode(it);
+    std::cout << *it << "\n";
   }
   std::cout << "\n";
 
   /* Backward iteration */
-  it.set(t4.rbegin());
-  while (it.ptr) {
+  for (AVL::Iterator<CustomNode> it(t4.rbegin()); it != nullptr; --it) {
     /* Print element value */
-    std::cout << it.ptr->el << "\n";
-    t4.prevNode(it);
+    std::cout << *it << "\n";
   }
+}
 
+TEST(AVLTEST3, IntegerSimpleCase) {
   /* Let's do a heavy testing using 1 million integers */
   AVL::Tree<int> t5;
   for (int i = 1; i <= 1e6; ++i) {
@@ -166,20 +152,16 @@ TEST(AVLTEST, HandleAllCases) {
 
   /* Iterate over t5 and test whether the ith value is equal to i */
   int i = 1;
-  fwd.set(t5.begin());
-  while (fwd.ptr) {
-    EXPECT_TRUE(fwd.ptr->el == i);
+  for (AVL::Iterator<int> fwd(t5.begin()); fwd != nullptr; ++fwd) {
+    EXPECT_TRUE(*fwd == i);
     ++i;
-    t5.nextNode(fwd);
   }
 
   /* Similarly, iterate backward and test whether the ith value is equal to i */
   --i;
-  bwd.set(t5.rbegin());
-  while (bwd.ptr) {
-    EXPECT_TRUE(bwd.ptr->el == i);
+  for (AVL::Iterator<int> bwd(t5.rbegin()); bwd != nullptr; --bwd) {
+    EXPECT_TRUE(*bwd == i);
     --i;
-    t5.prevNode(bwd);
   }
   /* Testing complete */
 }

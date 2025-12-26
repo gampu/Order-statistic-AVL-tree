@@ -3,7 +3,7 @@ load("@rules_cc//cc:cc_library.bzl", "cc_library")
 
 cc_library(
     name = "avl_library",
-    hdrs = ["src/avl.h"],
+    srcs = ["src/avl.h"],
 )
 
 cc_test(

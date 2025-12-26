@@ -51,15 +51,93 @@ public:
 /* Very basic iterator for iterating over the nodes of an AVL tree */
 template <typename T> class Iterator {
 public:
-  /* Pointer to a Node object */
-  Node<T> *ptr = 0;
-
   /* Constructor for an Iterator object */
   Iterator(Node<T> *p) { ptr = p; }
 
-  /* Set member function useful for using previously defined 'Iterator' object
+  /* Copy constructor */
+  Iterator(const Iterator &other) { ptr = other.ptr; }
+
+  /* Assignment operator */
+  const Iterator &operator=(const Iterator &right) {
+    /* Avoid self-assignment */
+    if (&right != this) {
+      ptr = right.ptr;
+    }
+    return *this;
+  }
+
+  /* Dereference operator */
+  const T &operator*() { return this->ptr->el; }
+
+  /* Pre-Increment operator */
+  void operator++() { nextNode(); }
+
+  /* Pre-Decrement operator */
+  void operator--() { prevNode(); }
+
+  /* Post-Increment operator */
+  void operator++(int) { nextNode(); }
+
+  /* Post-Decrement operator */
+  void operator--(int) { prevNode(); }
+
+  /* Inequality operator */
+  bool operator!=(const Iterator &right) { return this->ptr != right.ptr; }
+
+  /* Equality operator */
+  bool operator==(const Iterator &right) { return this->ptr == right.ptr; }
+
+private:
+  /* Pointer to a Node object */
+  Node<T> *ptr = 0;
+
+  /**
+   * Implements forward iterator functionality.
+   * Updates 'ptr' to point to the next greater element in the inorder
+   * traversal.
    */
-  void set(Node<T> *p) { ptr = p; }
+  void nextNode() {
+    Node<T> *&p = ptr;
+    if (!p) {
+      return;
+    }
+    if (p->right != 0) {
+      p = p->right;
+      while (p->left != 0) {
+        p = p->left;
+      }
+      return;
+    }
+    Node<T> *q = p->par;
+    while (q && q->el < p->el) {
+      q = q->par;
+    }
+    p = q;
+  }
+
+  /**
+   * Implements backward iterator functionality
+   * Updates 'ptr' to point to the next smaller element in the inorder
+   * traversal.
+   */
+  void prevNode() {
+    Node<T> *&p = ptr;
+    if (!p) {
+      return;
+    }
+    if (p->left != 0) {
+      p = p->left;
+      while (p->right != 0) {
+        p = p->right;
+      }
+      return;
+    }
+    Node<T> *q = p->par;
+    while (q && q->el > p->el) {
+      q = q->par;
+    }
+    p = q;
+  }
 }; /* End class Iterator */
 
 /* AVL tree class */
@@ -223,50 +301,6 @@ public:
       p = p->right;
     }
     return p;
-  }
-
-  /* Implements forward iterator functionality
-     Given an Iterator object 'it', updates 'it.ptr' to point to
-     the next greater element in the inorder traversal */
-  void nextNode(Iterator<T> &it) {
-    Node<T> *&p = it.ptr;
-    if (!p) {
-      return;
-    }
-    if (p->right != 0) {
-      p = p->right;
-      while (p->left != 0) {
-        p = p->left;
-      }
-      return;
-    }
-    Node<T> *q = p->par;
-    while (q && q->el < p->el) {
-      q = q->par;
-    }
-    p = q;
-  }
-
-  /* Implements backward iterator functionality
-     Given an Iterator object 'it', updates 'it.ptr' to point to
-     the next smaller element in the inorder traversal */
-  void prevNode(Iterator<T> &it) {
-    Node<T> *&p = it.ptr;
-    if (!p) {
-      return;
-    }
-    if (p->left != 0) {
-      p = p->left;
-      while (p->right != 0) {
-        p = p->right;
-      }
-      return;
-    }
-    Node<T> *q = p->par;
-    while (q && q->el > p->el) {
-      q = q->par;
-    }
-    p = q;
   }
 
   /* Clears an AVL tree */
@@ -443,7 +477,9 @@ private:
     }
   }
 
-  /* Helper function for the tree destructor */
+  /**
+   * Helper function for the tree destructor
+   */
   void deleteSubtree(Node<T> *p) {
     if (!p) {
       return;
