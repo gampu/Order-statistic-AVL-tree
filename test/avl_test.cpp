@@ -143,7 +143,7 @@ TEST(AVLTEST2, CustomNodeSimpleCase) {
   }
 }
 
-TEST(AVLTEST3, IntegerSimpleCase) {
+TEST(AVLTEST3, IntegerHeavyCase) {
   /* Let's do a heavy testing using 1 million integers */
   AVL::Tree<int> t5;
   for (int i = 1; i <= 1e6; ++i) {
