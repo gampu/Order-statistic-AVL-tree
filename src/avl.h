@@ -342,7 +342,7 @@ private:
   }
 
   /* Left-rotate balancing technique */
-  void LR(Node<T> *gr, Node<T> *par, Node<T> *ch) {
+  void LR(Node<T> *gr, Node<T> *par) {
     gr->right = par->left;
     if (gr->right) {
       gr->right->par = gr;
@@ -364,7 +364,7 @@ private:
   }
 
   /* Right rotate balancing technique */
-  void RR(Node<T> *gr, Node<T> *par, Node<T> *ch) {
+  void RR(Node<T> *gr, Node<T> *par) {
     gr->left = par->right;
     if (gr->left) {
       gr->left->par = gr;
@@ -375,10 +375,10 @@ private:
     if (par->par == 0) {
       root = par;
     } else {
-      if (par->par->left == gr) {
-        par->par->left = par;
-      } else {
+      if (par->par->right == gr) {
         par->par->right = par;
+      } else {
+        par->par->left = par;
       }
     }
     update(gr);
@@ -392,14 +392,14 @@ private:
       if (ptr->bf == 2 || ptr->bf == -2) {
         if (ptr->bf == 2) {
           if (ptr->right->bf == -1) {
-            RR(ptr->right, ptr->right->left, ptr->right->left->left);
+            RR(ptr->right, ptr->right->left);
           }
-          LR(ptr, ptr->right, ptr->right->right);
+          LR(ptr, ptr->right);
         } else {
           if (ptr->left->bf == 1) {
-            LR(ptr->left, ptr->left->right, ptr->left->right->right);
+            LR(ptr->left, ptr->left->right);
           }
-          RR(ptr, ptr->left, ptr->left->left);
+          RR(ptr, ptr->left);
         }
         ptr = ptr->par;
       }
